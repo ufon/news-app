@@ -6,6 +6,8 @@ import { fetchNews } from 'actions/news';
 
 import { Card } from 'components';
 
+import styles from './styles.scss';
+
 class Feed extends Component {
   constructor(props) {
     super(props);
@@ -26,15 +28,13 @@ class Feed extends Component {
   renderItems = () => this.props.news.map((article, index) => <Card meta={article} />);
 
   renderWaypoint = () => {
-    if (!this.props.isFetching) {
-      return <Waypoint onEnter={this.loadMoreItems} />;
-    }
+    if (!this.props.isFetching) return <Waypoint onEnter={this.loadMoreItems} />;
   };
 
   render() {
     return (
-      <div className="feed">
-        <div className="feed__scrollable">
+      <div className={styles.feed}>
+        <div className={styles.feed__inner}>
           {this.renderItems()}
           <div className="feed__waypoint">
             {this.renderWaypoint()}
