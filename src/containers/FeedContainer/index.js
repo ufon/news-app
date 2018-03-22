@@ -1,6 +1,68 @@
-import React from 'react';
-import { Feed } from 'components';
+import React, { Component } from 'react';
+import { Feed, Search } from 'components';
+import { connect } from 'react-redux';
+import { fetchNews, fetchNewsByQuery } from 'actions/news';
+import { pageNext } from 'actions/pagination';
+import PropTypes from 'prop-types';
 
-const FeedContainer = () => <Feed />;
+import styles from './styles.scss';
 
-export default FeedContainer;
+class FeedContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchQuery: '',
+    };
+
+    this.props.getNews(1);
+  }
+
+  fetchNews = page =>
+    this.state.searchQuery.length > 0
+      ? this.props.getNewsByQuery(page, this.state.searchQuery)
+      : this.props.getNews(page);
+
+  goSearch = query => this.setState({ searchQuery: query }, () => this.fetchNews(1));
+
+  render = () => (
+    <div className={styles.container__feed}>
+      <Search timeout={1000} callback={this.goSearch} />
+      <Feed
+        news={this.props.news}
+        isFetching={this.props.isFetching}
+        isEnd={this.props.isEnd}
+        loadMore={() => this.props.goNext().then(() => this.fetchNews(this.props.page))}
+      />
+    </div>
+  );
+}
+
+FeedContainer.propTypes = {
+  news: PropTypes.object.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  getNews: PropTypes.func.isRequired,
+  getNewsByQuery: PropTypes.func.isRequired,
+  goNext: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  isEnd: PropTypes.bool.isRequired,
+};
+
+const mapDispatchToProps = dispatch => ({
+  getNews: page => {
+    dispatch(fetchNews(page));
+  },
+  getNewsByQuery: (page, query) => {
+    dispatch(fetchNewsByQuery(page, query));
+  },
+  goNext: () => dispatch(pageNext()),
+});
+
+const mapStateToProps = state => ({
+  news: state.app.news.items,
+  isFetching: state.app.news.isFetching,
+  isEnd: state.app.news.isEnd,
+  page: state.app.pagination.page,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FeedContainer);

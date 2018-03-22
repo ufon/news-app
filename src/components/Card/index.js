@@ -1,23 +1,32 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import { LazyImage, LikeButton } from 'components';
+import moment from 'moment/min/moment-with-locales';
 import styles from './styles.scss';
 
-const Card = () => (
+const momentFormat = date => {
+  moment.locale('ru');
+  return moment(date).fromNow(); // an hour ago
+};
+
+const Card = ({ article }) => (
   <div className={styles.card}>
     <div className={styles.card__image}>
-      <img
-        src="https://images.unsplash.com/photo-1434493651957-4ec11beae249?q=80&fm=jpg&s=2a7fe1a34895ea3ef01079b58482287f"
-        alt=""
-      />
+      <LazyImage srcLoaded={article.urlToImage} />
     </div>
     <div className={styles.card__content}>
-      <button className={styles.card__button}>
-        <i>share</i>
-      </button>
-      <p className={styles.card__title}>An example of a blog title</p>
-      <p className={styles.card__description}>Juan Antonio Beato Quiñones</p>
+      <LikeButton />
+      <h1 className={styles.card__title}>
+        <a href={article.url}>{article.title}</a>
+      </h1>
+      <p className={styles.card__description}>{article.description}</p>
+      <p>{momentFormat(article.publishedAt)}</p>
     </div>
   </div>
 );
+
+Card.propTypes = {
+  article: PropTypes.object.isRequired,
+};
 
 export default Card;

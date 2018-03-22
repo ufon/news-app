@@ -12,6 +12,8 @@ import { Route } from 'react-router-dom';
 
 import { ConnectedRouter } from 'react-router-redux';
 
+import './styles.scss';
+
 const AppContainer = ({ history }) => (
   <ConnectedRouter history={history}>
     <AppLayout>
