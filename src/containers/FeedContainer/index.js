@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Feed, Search } from 'components';
 import { connect } from 'react-redux';
+import firebase from 'firebase';
+
+import config from 'store/firebaseStore';
 
 import { fetchNews, fetchNewsByQuery } from 'actions/news';
 import { pageNext } from 'actions/pagination';
@@ -17,6 +20,7 @@ class FeedContainer extends Component {
       searchQuery: '',
     };
 
+    firebase.initializeApp(config);
     this.props.getNews(1);
   }
 

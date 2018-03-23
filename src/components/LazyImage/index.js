@@ -9,12 +9,14 @@ class LazyImage extends Component {
   }
 
   componentDidMount() {
-    const hdLoaderImg = new Image();
-    hdLoaderImg.src = this.props.srcLoaded;
-    hdLoaderImg.onload = () => {
-      this.LazyImage.setAttribute('style', `background-image: url('${this.props.srcLoaded}')`);
-      this.LazyImage.classList.add(styles.fadein);
-    };
+    if (this.props.srcLoaded !== '') {
+      const hdLoaderImg = new Image();
+      hdLoaderImg.src = this.props.srcLoaded;
+      hdLoaderImg.onload = () => {
+        this.LazyImage.setAttribute('style', `background-image: url('${this.props.srcLoaded}')`);
+        this.LazyImage.classList.add(styles.fadein);
+      };
+    }
   }
 
   render() {
@@ -32,7 +34,11 @@ class LazyImage extends Component {
 }
 
 LazyImage.propTypes = {
-  srcLoaded: PropTypes.string.isRequired,
+  srcLoaded: PropTypes.string,
+};
+
+LazyImage.defaultProps = {
+  srcLoaded: '',
 };
 
 export default LazyImage;

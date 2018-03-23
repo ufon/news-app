@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Count } from 'components';
 import styles from './styles.scss';
 
 class LikeButton extends Component {
@@ -7,7 +8,7 @@ class LikeButton extends Component {
     super(props);
 
     this.state = {
-      liked: false,
+      liked: this.props.liked,
     };
   }
 
@@ -19,18 +20,24 @@ class LikeButton extends Component {
     });
 
   render = (liked = this.state.liked) => (
-    <button onClick={this.toggleLike} className={liked ? `${styles.heart} ${styles.heart__animate}` : styles.heart} />
+    <button onClick={this.toggleLike} className={liked ? `${styles.heart} ${styles.heart__animate}` : styles.heart}>
+      <span className={styles.counter}>{this.props.likeCount}</span>
+    </button>
   );
 }
 
 LikeButton.propTypes = {
   likeEvent: PropTypes.func,
   dislikeEvent: PropTypes.func,
+  likeCount: PropTypes.number,
+  liked: PropTypes.bool,
 };
 
 LikeButton.defaultProps = {
   likeEvent: () => console.log('like'),
   dislikeEvent: () => console.log('dislike'),
+  likeCount: 0,
+  liked: false,
 };
 
 export default LikeButton;

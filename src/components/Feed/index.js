@@ -2,26 +2,15 @@ import React from 'react';
 import Waypoint from 'react-waypoint';
 import PropTypes from 'prop-types';
 import { Card, Spinner } from 'components';
+import uuidv5 from 'uuid/v5';
 import styles from './styles.scss';
-
-const hashCode = s => {
-  /* eslint no-bitwise: 0 */
-  let hash = 0;
-  let i;
-  let chr;
-  if (s.length === 0) return hash;
-  for (i = 0; i < s.length; i += 1) {
-    chr = s.charCodeAt(i);
-    hash = (hash << 5) - hash + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return hash;
-};
 
 const Feed = ({ news, loadMore, isEnd, isFetching }) => (
   <div className={styles.feed}>
     <div className={styles.feed__inner}>
-      {news.map(article => <Card key={hashCode(article.title)} article={article} />)}
+      {news.map(article => (
+        <Card key={uuidv5(article.title, uuidv5.URL)} uuid={uuidv5(article.title, uuidv5.URL)} article={article} />
+      ))}
       <div className={styles.feed__waypoint}>
         {!isFetching && <Waypoint onEnter={loadMore} />}
         {!isEnd && <Spinner />}
