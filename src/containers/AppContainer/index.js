@@ -14,11 +14,13 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import './styles.scss';
 
+const fixUrl = url => (process.env.NODE_ENV === 'production' ? `/news-app${url}` : url);
+
 const AppContainer = ({ history }) => (
   <ConnectedRouter history={history}>
     <AppLayout>
-      <Route exact path="/" component={FeedPage} />
-      <Route path="/about" component={AboutPage} />
+      <Route exact path={fixUrl('/')} component={FeedPage} />
+      <Route path={fixUrl('/about')} component={AboutPage} />
     </AppLayout>
   </ConnectedRouter>
 );
