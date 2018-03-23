@@ -1,1 +1,0 @@
-SmartexLab ReactJS task
