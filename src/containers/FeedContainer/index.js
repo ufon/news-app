@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Feed, Search } from 'components';
 import { connect } from 'react-redux';
+
 import { fetchNews, fetchNewsByQuery } from 'actions/news';
 import { pageNext } from 'actions/pagination';
+
 import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
@@ -39,7 +41,7 @@ class FeedContainer extends Component {
 }
 
 FeedContainer.propTypes = {
-  news: PropTypes.object.isRequired,
+  news: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
   getNews: PropTypes.func.isRequired,
   getNewsByQuery: PropTypes.func.isRequired,
