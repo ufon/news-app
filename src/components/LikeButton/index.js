@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Count } from 'components';
 import styles from './styles.scss';
 
 class LikeButton extends Component {
