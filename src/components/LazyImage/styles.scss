@@ -15,7 +15,6 @@
     #d3cce3
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-
 .loaded {
   position: absolute;
   z-index: 2;
@@ -27,7 +26,6 @@
   opacity: 0;
   transition: opacity 1s ease;
 }
-
 .fadein {
   opacity: 1;
 }

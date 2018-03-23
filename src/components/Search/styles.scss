@@ -1,6 +1,6 @@
-.container__search{
-    text-align: center;
-    padding-top: 25px;
+.container__search {
+  text-align: center;
+  padding-top: 25px;
 }
 
 .search {
@@ -29,7 +29,8 @@
     transition: all 200ms ease;
   }
 
-  &__active, &:hover {
+  &__active,
+  &:hover {
     width: 200px;
     margin-right: 0px;
     border-radius: 0px;
@@ -38,9 +39,9 @@
       height: 0px;
     }
 
-    input{
-      visibility: visible!important;
-      opacity: 1!important;
+    input {
+      visibility: visible !important;
+      opacity: 1 !important;
     }
   }
 
@@ -59,10 +60,9 @@
     font-weight: 500;
     transition: all 200ms ease-in-out;
 
-    &:focus{
+    &:focus {
       visibility: visible;
       opacity: 1;
     }
-
   }
 }
